@@ -67,6 +67,9 @@ elif options.network == 'resnet50':
 elif options.network == 'resnet101':
 	from keras_frcnn import resnet101 as nn
 	C.network = 'resnet101'
+elif options.network == 'resnet101_pruning':
+	from keras_frcnn import resnet101_pruning as nn
+	C.network = 'resnet101'
 else:
 	print('Not a valid model')
 	raise ValueError
@@ -136,7 +139,9 @@ model_classifier = Model([img_input, roi_input], classifier)
 # this is a model that holds both the RPN and the classifier, used to load/save weights for the models
 model_all = Model([img_input, roi_input], rpn[:2] + classifier)
 
-plot_model(model_classifier, 'classifier_101.jpg', show_shapes=True)
+plot_model(model_rpn, 'rpn.jpg', show_shapes=True)
+plot_model(model_classifier, 'classifier.jpg', show_shapes=True)
+plot_model(model_all, 'all.jpg', show_shapes=True)
 
 try:
 	print('loading weights from {}'.format(C.base_net_weights))
