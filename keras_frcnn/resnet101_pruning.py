@@ -11,14 +11,14 @@ from keras_frcnn.RoiPoolingConv import RoiPoolingConv
 import sys
 sys.setrecursionlimit(3000)
 
-pruning_ratio = 0.4
+pruning_ratio = 0.2
 
 def get_weight_path():
     if K.image_dim_ordering() == 'th':
         print('pretrained weights not available for VGG with theano backend')
         return
     else:
-        return '/Users/Lavector/code/model_compression/weights.00017.hdf5'
+        return './weights.00007.hdf5'
 
 def get_img_output_length(width, height):
     def get_output_length(input_length):

@@ -145,6 +145,8 @@ tbCallBack = TensorBoard(log_dir='log', histogram_freq=1,
 
 tbCallBack.set_model(model_all)
 
+model_all.load_weights('./model/model_frcnn.resnet_0117.hdf5')
+
 plot_model(model_rpn, 'rpn.jpg', show_shapes=True)
 plot_model(model_classifier, 'classifier.jpg', show_shapes=True)
 plot_model(model_all, 'all.jpg', show_shapes=True)
@@ -163,8 +165,6 @@ optimizer_classifier = Adam(lr=1e-5)
 model_rpn.compile(optimizer=optimizer, loss=[losses.rpn_loss_cls(num_anchors), losses.rpn_loss_regr(num_anchors)])
 model_classifier.compile(optimizer=optimizer_classifier, loss=[losses.class_loss_cls, losses.class_loss_regr(len(classes_count)-1)], metrics={'dense_class_{}'.format(len(classes_count)): 'accuracy'})
 model_all.compile(optimizer='sgd', loss='mae')
-
-model_all.load_weights('model/model_frcnn.resnet_0015.hdf5')
 
 epoch_length = 1000
 num_epochs = int(options.num_epochs)
@@ -193,7 +193,7 @@ train_names = ['train_loss_rpn_cls', 'train_loss_rpn_reg','train_loss_class_cls'
 
 
 vis = True
-start_epoch = 16
+start_epoch = 118
 
 for epoch_num in range(start_epoch, num_epochs):
 

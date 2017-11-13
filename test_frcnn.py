@@ -39,7 +39,12 @@ if C.network == 'resnet50':
 	import keras_frcnn.resnet as nn
 elif C.network == 'vgg':
 	import keras_frcnn.vgg as nn
+elif C.network == 'resnet101':
+	import keras_frcnn.resnet101 as nn
+elif C.network == 'resnet101_pruning':
+	import keras_frcnn.resnet101_pruning as nn
 
+C.model_path = './model/model_frcnn.resnet_0117.hdf5'
 # turn off any data augmentation at test time
 C.use_horizontal_flips = False
 C.use_vertical_flips = False
@@ -105,6 +110,10 @@ if C.network == 'resnet50':
 	num_features = 1024
 elif C.network == 'vgg':
 	num_features = 512
+elif C.network == 'resnet101':
+	num_features = 1024
+elif C.network == 'resnet101_pruning':
+	num_features = 1024 - int(1024*0.2)
 
 if K.image_dim_ordering() == 'th':
 	input_shape_img = (3, None, None)
